@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUserAction } from '../../../redux/slices/users/usersSlice';
+import ErrorMsg from '../../ErrorMsg/ErrorMsg';
 
 const Login = () => {
   //dispatch
@@ -49,7 +50,7 @@ const Login = () => {
                   Happy to see you again
                 </p>
                 {/* err */}
-                {error && <h2 className="text-red-600">{error?.message}</h2>}
+                {error && <ErrorMsg message={error?.message} />}
                 <form
                   className="flex flex-wrap -mx-4"
                   onSubmit={onSubmitHandler}
