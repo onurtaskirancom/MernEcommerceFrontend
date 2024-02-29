@@ -27,6 +27,8 @@ export const loginUserAction = createAsyncThunk(
         email,
         password,
       });
+      //save the user into localstorage
+      localStorage.setItem('userInfo', JSON.stringify(data));
       return data;
     } catch (error) {
       console.log(error);
