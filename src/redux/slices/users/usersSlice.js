@@ -13,13 +13,15 @@ const initialState = {
   userAuth: {
     loading: false,
     error: null,
-    userInfo: {},
+    userInfo: localStorage.getItem('userInfo')
+      ? JSON.parse(localStorage.getItem('userInfo'))
+      : null,
   },
 };
 
 //register action
 export const registerUserAction = createAsyncThunk(
-  "users/register",
+  'users/register',
   async (
     { email, password, fullname },
     { rejectWithValue, getState, dispatch }
