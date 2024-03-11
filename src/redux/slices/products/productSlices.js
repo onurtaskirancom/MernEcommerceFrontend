@@ -19,17 +19,27 @@ export const createProductAction = createAsyncThunk(
     try {
       const { name, description, category, sizes, brand, colors, price } =
         payload;
-
       // make request
-      const { data } = await axios.post(`${baseURL}/products`, {
-        name,
-        description,
-        category,
-        sizes,
-        brand,
-        colors,
-        price,
-      });
+      // Token Authenticated
+      const token = getState()?.users?.userAuth?.userInfo?.token;
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const { data } = await axios.post(
+        `${baseURL}/products`,
+        {
+          name,
+          description,
+          category,
+          sizes,
+          brand,
+          colors,
+          price,
+        },
+        config
+      );
       return data;
     } catch (error) {
       return rejectWithValue(error?.response?.data);
