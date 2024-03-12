@@ -1,3 +1,6 @@
+import axios from 'axios';
+import baseURL from '../../../utils/baseURL';
+
 const { createAsyncThunk, createSlice } = require('@reduxjs/toolkit');
 
 //initalsState

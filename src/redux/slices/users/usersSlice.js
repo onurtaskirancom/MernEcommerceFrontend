@@ -2,7 +2,10 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 import baseURL from '../../../utils/baseURL';
-
+import {
+  resetErrAction,
+  resetSuccessAction,
+} from '../globalActions/globalActions';
 //initialState
 const initialState = {
   loading: false,
