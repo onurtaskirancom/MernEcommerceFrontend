@@ -12,10 +12,21 @@ import SuccessMsg from '../../SuccessMsg/SuccessMsg';
 const animatedComponents = makeAnimated();
 
 export default function AddProduct() {
+  //Sizes
+  const sizes = ['S', 'M', 'L', 'XL', 'XXL'];
+  const [sizeOption, setSizeOption] = useState([]);
+  const handleSizeChange = (sizes) => {
+    setSizeOption(sizes);
+  };
+  //converted sizes
+  const sizeOptionsCoverted = sizes?.map((size) => {
+    return {
+      value: size,
+      label: size,
+    };
+  });
   const dispatch = useDispatch();
   let categories,
-    sizeOptionsCoverted,
-    handleSizeChange,
     colorOptionsCoverted,
     handleColorChangeOption,
     brands,
@@ -44,6 +55,7 @@ export default function AddProduct() {
   //onSubmit
   const handleOnSubmit = (e) => {
     e.preventDefault();
+    console.log(sizeOption);
     //dispatch
     dispatch(createProductAction(formData));
     //reset form data
@@ -98,7 +110,7 @@ export default function AddProduct() {
                   Select Size
                 </label>
                 <Select
-                  components={animatedComponents}
+                  // components={animatedComponents}
                   isMulti
                   name="sizes"
                   options={sizeOptionsCoverted}
