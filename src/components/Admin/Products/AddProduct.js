@@ -4,6 +4,7 @@ import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
 import { fetchBrandsAction } from '../../../redux/slices/categories/brandsSlice';
 import { fetchCategoriesAction } from '../../../redux/slices/categories/categoriesSlice';
+import { fetchColorsAction } from '../../../redux/slices/categories/colorsSlice';
 import { createProductAction } from '../../../redux/slices/products/productSlices';
 
 import ErrorMsg from '../../ErrorMsg/ErrorMsg';
@@ -44,9 +45,29 @@ export default function AddProduct() {
   const {
     brands: { brands },
   } = useSelector((state) => state?.brands);
-  console.log(brands);
 
-  let colorOptionsCoverted, handleColorChangeOption, isAdded;
+  //colors
+  const [colorsOption, setColorsOption] = useState([]);
+
+  const {
+    colors: { colors },
+  } = useSelector((state) => state?.colors);
+  useEffect(() => {
+    dispatch(fetchColorsAction());
+  }, [dispatch]);
+
+  const handleColorChange = (colors) => {
+    setColorsOption(colors);
+  };
+  //converted colors
+  const colorsCoverted = colors?.map((color) => {
+    return {
+      value: color?.name,
+      label: color?.name,
+    };
+  });
+
+  let isAdded;
 
   //---form data---
   const [formData, setFormData] = useState({
@@ -69,7 +90,7 @@ export default function AddProduct() {
   //onSubmit
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    console.log(sizeOption);
+    console.log(formData);
     //dispatch
     dispatch(createProductAction(formData));
     //reset form data
@@ -187,14 +208,14 @@ export default function AddProduct() {
                   components={animatedComponents}
                   isMulti
                   name="colors"
-                  options={colorOptionsCoverted}
+                  options={colorsCoverted}
                   className="basic-multi-select"
                   classNamePrefix="select"
                   isClearable={true}
                   isLoading={false}
                   isSearchable={true}
                   closeMenuOnSelect={false}
-                  onChange={(e) => handleColorChangeOption(e)}
+                  onChange={(e) => handleColorChange(e)}
                 />
               </div>
 
