@@ -16,6 +16,14 @@ const animatedComponents = makeAnimated();
 
 export default function AddProduct() {
   const dispatch = useDispatch();
+  //files
+  const [files, setFiles] = useState([]);
+  const [fileErrs, setFileErrs] = useState([]);
+  //file handlechange
+  const fileHandleChange = (event) => {
+    const newFiles = Array.from(event.target.files);
+    setFiles(newFiles);
+  };
   //Sizes
   const sizes = ['S', 'M', 'L', 'XL', 'XXL'];
   const [sizeOption, setSizeOption] = useState([]);
@@ -90,7 +98,7 @@ export default function AddProduct() {
   //onSubmit
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+    console.log(files);
     //dispatch
     dispatch(createProductAction(formData));
     //reset form data
