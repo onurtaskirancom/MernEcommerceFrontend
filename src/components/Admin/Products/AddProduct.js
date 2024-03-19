@@ -56,7 +56,6 @@ export default function AddProduct() {
 
   //colors
   const [colorsOption, setColorsOption] = useState([]);
-
   const {
     colors: { colors },
   } = useSelector((state) => state?.colors);
@@ -98,9 +97,15 @@ export default function AddProduct() {
   //onSubmit
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    console.log(files);
     //dispatch
-    dispatch(createProductAction(formData));
+    dispatch(
+      createProductAction({
+        ...formData,
+        images: files,
+        colors: colorsOption?.map((color) => color.label),
+        sizes: sizeOption?.map((size) => size?.label),
+      })
+    );
     //reset form data
     // setFormData({
     //   name: "",
