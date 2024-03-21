@@ -20,16 +20,47 @@ export const createProductAction = createAsyncThunk(
   async (payload, { rejectWithValue, getState, dispatch }) => {
     console.log(payload);
     try {
-      const { name, description, category, sizes, brand, colors, price } =
-        payload;
+      const {
+        name,
+        description,
+        category,
+        sizes,
+        brand,
+        colors,
+        price,
+        totalQty,
+        files,
+      } = payload;
       // make request
       // Token Authenticated
       const token = getState()?.users?.userAuth?.userInfo?.token;
       const config = {
         headers: {
           Authorization: `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data',
         },
       };
+      //FormData
+      const formData = new FormData();
+      formData.append('name', name);
+      formData.append('description', description);
+      formData.append('category', category);
+
+      formData.append('brand', brand);
+      formData.append('price', price);
+      formData.append('totalQty', totalQty);
+
+      sizes.forEach((size) => {
+        formData.append('sizes', size);
+      });
+      colors.forEach((color) => {
+        formData.append('colors', color);
+      });
+
+      files.forEach((file) => {
+        formData.append('files', file);
+      });
+
       const { data } = await axios.post(
         `${baseURL}/products`,
         {

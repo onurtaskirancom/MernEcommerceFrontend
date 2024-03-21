@@ -101,7 +101,7 @@ export default function AddProduct() {
     dispatch(
       createProductAction({
         ...formData,
-        images: files,
+        files,
         colors: colorsOption?.map((color) => color.label),
         sizes: sizeOption?.map((size) => size?.label),
       })
