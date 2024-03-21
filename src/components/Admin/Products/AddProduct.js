@@ -42,9 +42,7 @@ export default function AddProduct() {
     dispatch(fetchCategoriesAction());
   }, [dispatch]);
   //select data from store
-  const { categories, loading, error } = useSelector(
-    (state) => state?.categories?.categories
-  );
+  const { categories } = useSelector((state) => state?.categories?.categories);
   //brands
   useEffect(() => {
     dispatch(fetchBrandsAction());
@@ -74,8 +72,6 @@ export default function AddProduct() {
     };
   });
 
-  let isAdded;
-
   //---form data---
   const [formData, setFormData] = useState({
     name: '',
@@ -94,6 +90,11 @@ export default function AddProduct() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  //get product from store
+  const { product, isAdded, loading, error } = useSelector(
+    (state) => state?.products
+  );
+
   //onSubmit
   const handleOnSubmit = (e) => {
     e.preventDefault();
@@ -107,17 +108,17 @@ export default function AddProduct() {
       })
     );
     //reset form data
-    // setFormData({
-    //   name: "",
-    //   description: "",
-    //   category: "",
-    //   sizes: "",
-    //   brand: "",
-    //   colors: "",
-    //   images: "",
-    //   price: "",
-    //   totalQty: "",
-    // });
+    setFormData({
+      name: "",
+      description: "",
+      category: "",
+      sizes: "",
+      brand: "",
+      colors: "",
+      images: "",
+      price: "",
+      totalQty: "",
+    });
   };
 
   return (
@@ -272,7 +273,7 @@ export default function AddProduct() {
                         </label>
                       </div>
                       <p className="text-xs text-gray-500">
-                        PNG, JPG, GIF up to 10MB
+                        PNG, JPG, GIF up to 1MB
                       </p>
                     </div>
                   </div>
