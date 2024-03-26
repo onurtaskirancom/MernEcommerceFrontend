@@ -21,7 +21,10 @@ export const createCategoryAction = createAsyncThunk(
     console.log(payload);
     try {
       const { name } = payload;
-      // make request
+      //fromData
+      const formData = new FormData();
+      formData.append('name', name);
+      formData.append('image', image);
       // Token Authenticated
       const token = getState()?.users?.userAuth?.userInfo?.token;
       const config = {
