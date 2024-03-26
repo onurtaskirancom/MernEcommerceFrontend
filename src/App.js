@@ -75,20 +75,20 @@ const App = () => {
         </Route>
         {/* public links */}
         {/* Products */}
-        {/* <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<HomePage />} />
         <Route path="/products-filters" element={<ProductsFilters />} />
         <Route path="/products/:id" element={<Product />} />
-        <Route path="/all-categories" element={<AllCategories />} /> */}
+        <Route path="/all-categories" element={<AllCategories />} />
         {/* review */}
-        {/* <Route path="/add-review/:id" element={<AddReview />} /> */}
+        <Route path="/add-review/:id" element={<AddReview />} />
 
         {/* shopping cart */}
-        {/* <Route path="/shopping-cart" element={<ShoppingCart />} />
-        <Route path="/order-payment" element={<OrderPayment />} /> */}
+        <Route path="/shopping-cart" element={<ShoppingCart />} />
+        <Route path="/order-payment" element={<OrderPayment />} />
         {/* users */}
-        {/* <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/register" element={<RegisterForm />} />
-        <Route path="/customer-profile" element={<CustomerProfile />} /> */}
+        <Route path="/customer-profile" element={<CustomerProfile />} />
       </Routes>
     </BrowserRouter>
   );
