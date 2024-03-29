@@ -1,6 +1,9 @@
 import axios from 'axios';
 import baseURL from '../../../utils/baseURL';
-
+import {
+  resetErrAction,
+  resetSuccessAction,
+} from '../globalActions/globalActions';
 const { createAsyncThunk, createSlice } = require('@reduxjs/toolkit');
 
 //initalsState
@@ -92,6 +95,14 @@ const categorySlice = createSlice({
       state.categories = null;
       state.isAdded = false;
       state.error = action.payload;
+    });
+    //Reset err
+    builder.addCase(resetErrAction.pending, (state, action) => {
+      state.error = null;
+    });
+    //Reset success
+    builder.addCase(resetSuccessAction.pending, (state, action) => {
+      state.isAdded = false;
     });
   },
 });

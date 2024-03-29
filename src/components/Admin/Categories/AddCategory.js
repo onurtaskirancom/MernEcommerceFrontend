@@ -15,7 +15,6 @@ export default function CategoryToAdd() {
   const handleOnChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  let { error, isAdded, loading } = {};
 
   //files
   const [file, setFile] = useState([]);
@@ -33,10 +32,10 @@ export default function CategoryToAdd() {
         newErrs.push(`${file?.name} is not an image`);
       }
     });
-    setFile(newFiles);
-    setFileErr(newErrs);
+    setFile(newFile);
   };
-
+  //get data from store
+  const { loading, error, isAdded } = useSelector((state) => state?.categories);
   //onSubmit
   const handleOnSubmit = (e) => {
     console.log(file);
@@ -52,6 +51,7 @@ export default function CategoryToAdd() {
   return (
     <>
       {error && <ErrorComponent message={error?.message} />}
+      {fileErr && <ErrorComponent message={fileErr} />}
       {isAdded && <SuccessMsg message="Category added successfully" />}
       <div className="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
