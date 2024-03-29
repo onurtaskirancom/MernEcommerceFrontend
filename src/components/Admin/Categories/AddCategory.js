@@ -1,10 +1,13 @@
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import ErrorComponent from '../../ErrorMsg/ErrorMsg';
 import SuccessMsg from '../../SuccessMsg/SuccessMsg';
 import LoadingComponent from '../../LoadingComp/LoadingComponent';
+import { createCategoryAction } from '../../../redux/slices/categories/categoriesSlice';
 
 export default function CategoryToAdd() {
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     name: '',
   });
@@ -15,14 +18,14 @@ export default function CategoryToAdd() {
   let { error, isAdded, loading } = {};
 
   //files
-  const [files, setFiles] = useState([]);
-  const [fileErrs, setFileErrs] = useState([]);
+  const [file, setFile] = useState([]);
+  const [fileErr, setFileErr] = useState([]);
   //file handlechange
   const fileHandleChange = (event) => {
-    const newFiles = Array.from(event.target.files);
+    const newFile = Array.from(event.target.file);
     //validation
     const newErrs = [];
-    newFiles.forEach((file) => {
+    newFile.forEach((file) => {
       if (file?.size > 1000000) {
         newErrs.push(`${file?.name} is too large`);
       }
@@ -30,13 +33,21 @@ export default function CategoryToAdd() {
         newErrs.push(`${file?.name} is not an image`);
       }
     });
-    setFiles(newFiles);
-    setFileErrs(newErrs);
+    setFile(newFiles);
+    setFileErr(newErrs);
   };
 
   //onSubmit
   const handleOnSubmit = (e) => {
+    console.log(file);
     e.preventDefault();
+    //dispatch
+    dispatch(
+      createCategoryAction({
+        name: formData?.name,
+        image: file,
+      })
+    );
   };
   return (
     <>

@@ -34,9 +34,7 @@ export const createCategoryAction = createAsyncThunk(
       };
       const { data } = await axios.post(
         `${baseURL}/categories`,
-        {
-          name,
-        },
+        formData,
         config
       );
       return data;
