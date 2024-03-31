@@ -17,21 +17,20 @@ export default function CategoryToAdd() {
   };
 
   //files
-  const [file, setFile] = useState([]);
-  const [fileErr, setFileErr] = useState([]);
+  const [file, setFile] = useState(null);
+  const [fileErr, setFileErr] = useState(null);
   //file handlechange
   const fileHandleChange = (event) => {
-    const newFile = Array.from(event.target.file);
+    const newFile = event.target.files[0];
     //validation
-    const newErrs = [];
-    newFile.forEach((file) => {
-      if (file?.size > 1000000) {
-        newErrs.push(`${file?.name} is too large`);
-      }
-      if (!file?.type?.startsWith('image/')) {
-        newErrs.push(`${file?.name} is not an image`);
-      }
-    });
+
+    if (newFile?.size > 1000000) {
+      setFileErr(`${newFile?.name} is too large`);
+    }
+    if (!newFile?.type?.startsWith('image/')) {
+      setFileErr(`${newFile?.name} is not an image`);
+    }
+
     setFile(newFile);
   };
   //get data from store
@@ -44,7 +43,7 @@ export default function CategoryToAdd() {
     dispatch(
       createCategoryAction({
         name: formData?.name,
-        image: file,
+        file,
       })
     );
   };
