@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 import baseURL from '../../utils/baseURL';
 import logo from './logo3.png';
 import { useDispatch, useSelector } from 'react-redux';
+import { fetchCategoriesAction } from '../../redux/slices/categories/categoriesSlice';
 
 export default function Navbar() {
   //dispatch
