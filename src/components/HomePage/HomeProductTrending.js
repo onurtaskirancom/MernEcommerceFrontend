@@ -4,10 +4,16 @@ import { Link } from 'react-router-dom';
 import { fetchProductsAction } from '../../redux/slices/products/productSlices';
 
 const HomeProductTrending = () => {
+  //build up url
+  let productUrl = `${baseURL}/products`;
   //dispatch
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchProductsAction());
+    dispatch(
+      fetchProductsAction({
+        url: productUrl,
+      })
+    );
   }, [dispatch]);
   //get data from store
   const {
