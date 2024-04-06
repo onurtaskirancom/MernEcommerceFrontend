@@ -17,6 +17,9 @@ import {
 import Products from './Products';
 import { useSearchParams } from 'react-router-dom';
 import baseURL from '../../../utils/baseURL';
+import { fetchProductsAction } from '../../../redux/slices/products/productSlices';
+import { fetchBrandsAction } from '../../../redux/slices/categories/brandsSlice';
+import { fetchColorsAction } from '../../../redux/slices/categories/colorsSlice';
 
 const sortOptions = [
   { name: 'Most Popular', href: '#', current: true },
@@ -91,12 +94,38 @@ export default function ProductsFilters() {
         url: productUrl,
       })
     );
-  }, []);
+  }, [dispatch]);
+
+  //fetch brands
+  useEffect(() => {
+    dispatch(
+      fetchBrandsAction({
+        url: productUrl,
+      })
+    );
+  }, [dispatch]);
+  
+  //get store data
+  const {
+    brands: { brands },
+  } = useSelector((state) => state?.brands);
+
+  //fetch colors
+  useEffect(() => {
+    dispatch(
+      fetchColorsAction({
+        url: productUrl,
+      })
+    );
+  }, [dispatch]);
+
+  //get store data
+  const {
+    colors: { colors },
+  } = useSelector((state) => state?.colors);
 
   let colorsLoading;
   let colorsError;
-  let colors;
-  let brands;
   let productsLoading;
   let productsError;
   let products;
