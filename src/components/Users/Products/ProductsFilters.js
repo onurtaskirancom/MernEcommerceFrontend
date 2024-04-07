@@ -95,6 +95,10 @@ export default function ProductsFilters() {
       })
     );
   }, [dispatch]);
+  //get store data
+  const {
+    products: { products },
+  } = useSelector((state) => state?.products);
 
   //fetch brands
   useEffect(() => {
@@ -104,7 +108,7 @@ export default function ProductsFilters() {
       })
     );
   }, [dispatch]);
-  
+
   //get store data
   const {
     brands: { brands },
@@ -128,7 +132,6 @@ export default function ProductsFilters() {
   let colorsError;
   let productsLoading;
   let productsError;
-  let products;
 
   return (
     <div className="bg-white">
