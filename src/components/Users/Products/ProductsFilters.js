@@ -87,6 +87,9 @@ export default function ProductsFilters() {
   const [size, setSize] = useState('');
   //build up url
   let productUrl = `${baseURL}/products`;
+  if (category) {
+    productUrl = `${baseURL}/products?category=${category}`;
+  }
   //fetch all products
   useEffect(() => {
     dispatch(
