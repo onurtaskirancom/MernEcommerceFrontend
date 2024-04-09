@@ -90,6 +90,9 @@ export default function ProductsFilters() {
   if (category) {
     productUrl = `${baseURL}/products?category=${category}`;
   }
+  if (brand) {
+    productUrl = `${baseURL}/products?category=${category}&brand=${brand}`;`;
+  }
   //fetch all products
   useEffect(() => {
     dispatch(
