@@ -91,7 +91,13 @@ export default function ProductsFilters() {
     productUrl = `${baseURL}/products?category=${category}`;
   }
   if (brand) {
-    productUrl = `${baseURL}/products?category=${category}&brand=${brand}`;`;
+    productUrl = `${productUrl}&brand=${brand}`;
+  }
+  if (size) {
+    productUrl = `${productUrl}&size=${size}`;
+  }
+  if (price) {
+    productUrl = `${productUrl}&price=${price}`;
   }
   //fetch all products
   useEffect(() => {
@@ -100,7 +106,7 @@ export default function ProductsFilters() {
         url: productUrl,
       })
     );
-  }, [dispatch]);
+  }, [dispatch, category, size, brand, price]);
   //get store data
   const {
     products: { products },
@@ -443,16 +449,16 @@ export default function ProductsFilters() {
                           </h3>
                           <Disclosure.Panel className="pt-6">
                             <div className="space-y-6">
-                              {sizeCategories.map((option) => (
-                                <div key={option} className="flex items-center">
+                              {sizeCategories.map((size) => (
+                                <div key={size} className="flex items-center">
                                   <input
                                     type="radio"
                                     name="size"
-                                    onClick={() => setSize(option)}
+                                    onClick={() => setSize(size)}
                                     className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                                   />
                                   <label className="ml-3 min-w-0 flex-1 text-gray-500">
-                                    {option}
+                                    {size}
                                   </label>
                                 </div>
                               ))}
