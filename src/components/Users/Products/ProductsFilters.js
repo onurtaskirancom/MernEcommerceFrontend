@@ -85,6 +85,7 @@ export default function ProductsFilters() {
   const [price, setPrice] = useState('');
   const [brand, setBrand] = useState('');
   const [size, setSize] = useState('');
+  console.log(color);
   //build up url
   let productUrl = `${baseURL}/products`;
   if (category) {
@@ -99,6 +100,9 @@ export default function ProductsFilters() {
   if (price) {
     productUrl = `${productUrl}&price=${price}`;
   }
+  if (color) {
+    productUrl = `${productUrl}&color=${color?.name}`;
+  }
   //fetch all products
   useEffect(() => {
     dispatch(
@@ -106,7 +110,7 @@ export default function ProductsFilters() {
         url: productUrl,
       })
     );
-  }, [dispatch, category, size, brand, price]);
+  }, [dispatch, category, size, brand, price, color]);
   //get store data
   const {
     products: { products },
@@ -561,7 +565,7 @@ export default function ProductsFilters() {
                       <h3 className="-mx-2 -my-3 flow-root">
                         <Disclosure.Button className="flex w-full items-center justify-between bg-white px-2 py-3 text-gray-400 hover:text-gray-500">
                           <span className="font-medium text-gray-900">
-                            Colors Categories
+                            Colors
                           </span>
                           <span className="ml-6 flex items-center">
                             {open ? (
