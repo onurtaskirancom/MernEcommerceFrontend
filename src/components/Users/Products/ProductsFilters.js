@@ -20,6 +20,9 @@ import baseURL from '../../../utils/baseURL';
 import { fetchProductsAction } from '../../../redux/slices/products/productSlices';
 import { fetchBrandsAction } from '../../../redux/slices/categories/brandsSlice';
 import { fetchColorsAction } from '../../../redux/slices/categories/colorsSlice';
+import LoadingComponent from '../../LoadingComp/LoadingComponent';
+import ErrorMsg from '../../ErrorMsg/ErrorMsg';
+import NoDataFound from '../../NoDataFound/NoDataFound';
 
 const sortOptions = [
   { name: 'Most Popular', href: '#', current: true },
@@ -114,6 +117,8 @@ export default function ProductsFilters() {
   //get store data
   const {
     products: { products },
+    loading,
+    error,
   } = useSelector((state) => state?.products);
 
   //fetch brands
@@ -776,10 +781,12 @@ export default function ProductsFilters() {
               </form>
 
               {/* Product grid */}
-              {productsLoading ? (
-                <h2 className="text-xl">Loading...</h2>
-              ) : productsError ? (
-                <h2 className="text-red-500">{productsError}</h2>
+              {loading ? (
+                <LoadingComponent />
+              ) : error ? (
+                <ErrorMsg message={error?.message} />
+              ) : products?.length <= 0 ? (
+                <NoDataFound />
               ) : (
                 <Products products={products} />
               )}
