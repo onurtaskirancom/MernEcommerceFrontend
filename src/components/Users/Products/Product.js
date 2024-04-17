@@ -117,8 +117,8 @@ export default function Product() {
         qty: 1,
         price: product?.price,
         description: product?.description,
-        color: '',
-        size: '',
+        color: selectedColor,
+        size: selectedSize,
       })
     );
   };
