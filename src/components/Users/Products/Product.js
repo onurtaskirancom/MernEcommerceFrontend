@@ -9,7 +9,10 @@ import { StarIcon } from '@heroicons/react/20/solid';
 import { Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProductAction } from '../../../redux/slices/products/productSlices';
-import { addOrderToCartaction } from '../../../redux/slices/cart/cartSlices';
+import {
+  addOrderToCartaction,
+  getCartItemsFromLocalStorageAction,
+} from '../../../redux/slices/cart/cartSlices';
 
 const product = {
   name: 'Basic Tee',
@@ -143,6 +146,11 @@ export default function Product() {
       text: 'Product added to cart successfully',
     });
   };
+
+  //Get cart items
+  useEffect(() => {
+    dispatch(getCartItemsFromLocalStorageAction());
+  }, []);
 
   return (
     <div className="bg-white">
