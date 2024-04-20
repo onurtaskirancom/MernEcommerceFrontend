@@ -97,9 +97,6 @@ export default function Product() {
   const [selectedColor, setSelectedColor] = useState('');
 
   let productDetails = {};
-  let productColor;
-  let productSize;
-  let cartItems = [];
 
   //get id from params
   const { id } = useParams();
@@ -112,8 +109,27 @@ export default function Product() {
     error,
     product: { product },
   } = useSelector((state) => state?.products);
+
+  //Get cart items
+  useEffect(() => {
+    dispatch(getCartItemsFromLocalStorageAction());
+  }, []);
+  //get data from store
+  const { cartItems } = useSelector((state) => state?.carts);
+  const productExists = cartItems?.find(
+    (item) => item?._id?.toString() === product?._id.toString()
+  );
+
   //Add to cart handler
   const addToCartHandler = () => {
+    //check if product is in cart
+    if (productExists) {
+      return Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'This product is already in cart',
+      });
+    }
     //check if color/size selected
     if (selectedColor === '') {
       return Swal.fire({
@@ -146,11 +162,6 @@ export default function Product() {
       text: 'Product added to cart successfully',
     });
   };
-
-  //Get cart items
-  useEffect(() => {
-    dispatch(getCartItemsFromLocalStorageAction());
-  }, []);
 
   return (
     <div className="bg-white">
