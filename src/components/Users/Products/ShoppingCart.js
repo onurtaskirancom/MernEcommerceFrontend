@@ -7,7 +7,10 @@ import {
 } from '@heroicons/react/20/solid';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCartItemsFromLocalStorageAction } from '../../../redux/slices/cart/cartSlices';
+import {
+  changeOrderItemQty,
+  getCartItemsFromLocalStorageAction,
+} from '../../../redux/slices/cart/cartSlices';
 
 export default function ShoppingCart() {
   let changeOrderItemQtyHandler;
@@ -79,21 +82,25 @@ export default function ShoppingCart() {
                           Quantity, {product.name}
                         </label>
                         <select
-                          onChange={(e) =>
-                            changeOrderItemQtyHandler(
-                              product?.productID,
-                              e.target.value
-                            )
-                          }
+                          // onChange={(e) =>
+                          //   changeOrderItemQtyHandler(
+                          //     product?.productID,
+                          //     e.target.value
+                          //   )
+                          // }
+                          onChange={() => dispatch(changeOrderItemQty({
+                            productId: product?._id,
+                            qty: e.target?.value,
+
+                          }))}
                           className="max-w-full rounded-md border border-gray-300 py-1.5 text-left text-base font-medium leading-5 text-gray-700 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm"
                         >
                           {/* use the qty  */}
 
-                          {[...Array(product?.qtyLeft).keys()].map((x) => (
-                            <option key={x + 1} value={x + 1}>
-                              {x + 1}
-                            </option>
-                          ))}
+                          <option value={1}>1</option>
+                          <option value={1}>2</option>
+                          <option value={1}>3</option>
+                          <option value={1}>4</option>
                         </select>
                         {/* remove */}
                         <div className="absolute top-0 right-0">
@@ -133,7 +140,7 @@ export default function ShoppingCart() {
               <div className="flex items-center justify-between">
                 <dt className="text-sm text-gray-600">Subtotal</dt>
                 <dd className="text-sm font-medium text-gray-900">
-                  $ {sumTotalPrice}.00
+                  $ 3000
                 </dd>
               </div>
               <div className="flex items-center justify-between border-t border-gray-200 pt-4"></div>
@@ -179,7 +186,7 @@ export default function ShoppingCart() {
                   Order total
                 </dt>
                 <dd className=" text-xl font-medium text-gray-900">
-                  $ {sumTotalPrice}
+                  $ 999
                 </dd>
               </div>
             </dl>
