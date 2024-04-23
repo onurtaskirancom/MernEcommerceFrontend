@@ -73,7 +73,8 @@ export default function ShoppingCart() {
                           </p>
                         </div>
                         <p className="mt-1 text-sm font-medium text-gray-900">
-                          $ {product.discountedPrice} X {product.qty}
+                          {/* $ {product.price} X {product.qty} */}
+                          $ {product.price} 
                         </p>
                       </div>
 
@@ -88,18 +89,21 @@ export default function ShoppingCart() {
                           //     e.target.value
                           //   )
                           // }
-                          onChange={() => dispatch(changeOrderItemQty({
-                            productId: product?._id,
-                            qty: e.target?.value,
-
-                          }))}
+                          onChange={() =>
+                            dispatch(
+                              changeOrderItemQty({
+                                productId: product?._id,
+                                qty: e.target?.value,
+                              })
+                            )
+                          }
                           className="max-w-full rounded-md border border-gray-300 py-1.5 text-left text-base font-medium leading-5 text-gray-700 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm"
                         >
                           {/* use the qty  */}
 
                           <option value={1}>1</option>
-                          <option value={1}>2</option>
-                          <option value={1}>3</option>
+                          <option value={2}>2</option>
+                          <option value={3}>3</option>
                           <option value={1}>4</option>
                         </select>
                         {/* remove */}
@@ -139,9 +143,7 @@ export default function ShoppingCart() {
             <dl className="mt-6 space-y-4">
               <div className="flex items-center justify-between">
                 <dt className="text-sm text-gray-600">Subtotal</dt>
-                <dd className="text-sm font-medium text-gray-900">
-                  $ 3000
-                </dd>
+                <dd className="text-sm font-medium text-gray-900">$ 3000</dd>
               </div>
               <div className="flex items-center justify-between border-t border-gray-200 pt-4"></div>
               {/* add coupon */}
@@ -185,9 +187,7 @@ export default function ShoppingCart() {
                 <dt className="text-base font-medium text-gray-900">
                   Order total
                 </dt>
-                <dd className=" text-xl font-medium text-gray-900">
-                  $ 999
-                </dd>
+                <dd className=" text-xl font-medium text-gray-900">$ 999</dd>
               </div>
             </dl>
 

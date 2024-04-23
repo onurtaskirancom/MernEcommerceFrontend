@@ -25,10 +25,10 @@ export const addOrderToCartaction = createAsyncThunk(
 
 //add product to cart
 export const getCartItemsFromLocalStorageAction = createAsyncThunk(
-  "cart/get-order-items",
+  'cart/get-order-items',
   async () => {
-    const cartItems = localStorage.getItem("cartItems")
-      ? JSON.parse(localStorage.getItem("cartItems"))
+    const cartItems = localStorage.getItem('cartItems')
+      ? JSON.parse(localStorage.getItem('cartItems'))
       : [];
 
     return cartItems;
@@ -37,18 +37,22 @@ export const getCartItemsFromLocalStorageAction = createAsyncThunk(
 
 //add product to cart
 export const changeOrderItemQty = createAsyncThunk(
-  "cart/change-item-qty",
+  'cart/change-item-qty',
   async ({ productId, qty }) => {
     console.log(productId, qty);
-    const cartItems = localStorage.getItem("cartItems")
-      ? JSON.parse(localStorage.getItem("cartItems"))
+    const cartItems = localStorage.getItem('cartItems')
+      ? JSON.parse(localStorage.getItem('cartItems'))
       : [];
     const newCartItems = cartItems?.map((item) => {
       if (item?._id?.toString() === productId?.toString()) {
-        console.log(item);
+        //get new price
+        const newPrice = item?.price * qty;
+        item.qty = qty;
+        item.price = newPrice;
       }
+      return item;
     });
-    return cartItems;
+    localStorage.setItem('cartItems', JSON.stringify(newCartItems));
   }
 );
 
