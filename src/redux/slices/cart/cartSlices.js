@@ -47,8 +47,8 @@ export const changeOrderItemQty = createAsyncThunk(
       if (item?._id?.toString() === productId?.toString()) {
         //get new price
         const newPrice = item?.price * qty;
-        item.qty = qty;
-        item.price = newPrice;
+        item.qty = +qty;
+        item.totalPrice = newPrice;
       }
       return item;
     });
