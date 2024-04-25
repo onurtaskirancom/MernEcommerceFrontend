@@ -13,7 +13,6 @@ import {
 } from '../../../redux/slices/cart/cartSlices';
 
 export default function ShoppingCart() {
-  let changeOrderItemQtyHandler;
   let removeOrderItemFromLocalStorageHandler;
   let calculateTotalDiscountedPrice;
   let error;
@@ -29,6 +28,12 @@ export default function ShoppingCart() {
   }, [dispatch]);
   //get cart items from store
   const { cartItems } = useSelector((state) => state?.carts);
+  //add to cart handler
+  const changeOrderItemQtyHandler = (productId, qty) => {
+    dispatch(changeOrderItemQty({ productId, qty }));
+    dispatch(getCartItemsFromLocalStorageAction());
+  };
+  console.log(cartItems);
 
   return (
     <div className="bg-white">
@@ -73,8 +78,8 @@ export default function ShoppingCart() {
                           </p>
                         </div>
                         <p className="mt-1 text-sm font-medium text-gray-900">
-                          {/* $ {product.price} X {product.qty} */}
-                          $ {product.price} 
+                          ${product?.price} x {product?.qty} = $
+                          {product?.totalPrice}
                         </p>
                       </div>
 
@@ -83,18 +88,10 @@ export default function ShoppingCart() {
                           Quantity, {product.name}
                         </label>
                         <select
-                          // onChange={(e) =>
-                          //   changeOrderItemQtyHandler(
-                          //     product?.productID,
-                          //     e.target.value
-                          //   )
-                          // }
-                          onChange={() =>
-                            dispatch(
-                              changeOrderItemQty({
-                                productId: product?._id,
-                                qty: e.target?.value,
-                              })
+                          onChange={(e) =>
+                            changeOrderItemQtyHandler(
+                              product?._id,
+                              e.target.value
                             )
                           }
                           className="max-w-full rounded-md border border-gray-300 py-1.5 text-left text-base font-medium leading-5 text-gray-700 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm"
