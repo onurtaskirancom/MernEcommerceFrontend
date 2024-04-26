@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   changeOrderItemQty,
   getCartItemsFromLocalStorageAction,
+  removeOrderItemQty,
 } from '../../../redux/slices/cart/cartSlices';
 
 export default function ShoppingCart() {
@@ -34,7 +35,11 @@ export default function ShoppingCart() {
     dispatch(getCartItemsFromLocalStorageAction());
   };
   console.log(cartItems);
-
+  //remove cart  Item handler
+  const removeOrderItemQtyHandler = (productId) => {
+    dispatch(removeOrderItemQty(productId));
+    dispatch(getCartItemsFromLocalStorageAction());
+  };
   return (
     <div className="bg-white">
       <div className="mx-auto max-w-2xl px-4 pt-16 pb-24 sm:px-6 lg:max-w-7xl lg:px-8">
@@ -107,9 +112,7 @@ export default function ShoppingCart() {
                         <div className="absolute top-0 right-0">
                           <button
                             onClick={() =>
-                              removeOrderItemFromLocalStorageHandler(
-                                product?._id
-                              )
+                              removeOrderItemQtyHandler(product?._id)
                             }
                             className="-m-2 inline-flex p-2 text-gray-400 hover:text-gray-500"
                           >
