@@ -35,6 +35,12 @@ export default function ShoppingCart() {
     dispatch(getCartItemsFromLocalStorageAction());
   };
   console.log(cartItems);
+  //calculate total price
+  let sumTotalPrice = 0;
+  sumTotalPrice = cartItems?.reduce((acc, current) => {
+    return acc + current?.totalPrice;
+  }, 0);
+
   //remove cart  Item handler
   const removeOrderItemQtyHandler = (productId) => {
     dispatch(removeOrderItemQty(productId));
@@ -143,7 +149,9 @@ export default function ShoppingCart() {
             <dl className="mt-6 space-y-4">
               <div className="flex items-center justify-between">
                 <dt className="text-sm text-gray-600">Subtotal</dt>
-                <dd className="text-sm font-medium text-gray-900">$ 3000</dd>
+                <dd className="text-sm font-medium text-gray-900">
+                  $ {sumTotalPrice}.00
+                </dd>
               </div>
               <div className="flex items-center justify-between border-t border-gray-200 pt-4"></div>
               {/* add coupon */}
