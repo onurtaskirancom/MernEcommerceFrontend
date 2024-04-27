@@ -155,13 +155,16 @@ export default function Product() {
         color: selectedColor,
         size: selectedSize,
         image: product?.images[0],
+        totalPrice: product?.price,
+        qtyLeft: product?.qtyLeft,
       })
     );
-    return Swal.fire({
+    Swal.fire({
       icon: 'success',
       title: 'Good Job',
       text: 'Product added to cart successfully',
     });
+    return dispatch(getCartItemsFromLocalStorageAction());
   };
 
   return (
