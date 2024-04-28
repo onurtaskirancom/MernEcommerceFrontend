@@ -109,10 +109,13 @@ export default function ShoppingCart() {
                         >
                           {/* use the qty  */}
 
-                          <option value={1}>1</option>
-                          <option value={2}>2</option>
-                          <option value={3}>3</option>
-                          <option value={1}>4</option>
+                          {[...Array(product?.qtyLeft)?.keys()]?.map((x) => {
+                            return (
+                              <option key={x} value={x + 1}>
+                                {x + 1}
+                              </option>
+                            );
+                          })}
                         </select>
                         {/* remove */}
                         <div className="absolute top-0 right-0">
