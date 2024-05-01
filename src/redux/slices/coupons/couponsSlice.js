@@ -112,6 +112,19 @@ const couponsSlice = createSlice({
       state.isAdded = false;
       state.error = action.payload;
     });
+    //fetch single coupon
+    builder.addCase(fetchCouponAction.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(fetchCouponAction.fulfilled, (state, action) => {
+      state.loading = false;
+      state.coupon = action.payload;
+    });
+    builder.addCase(fetchCouponAction.rejected, (state, action) => {
+      state.loading = false;
+      state.coupon = null;
+      state.error = action.payload;
+    });
     //reset error action
     builder.addCase(resetErrAction.pending, (state, action) => {
       state.isAdded = false;

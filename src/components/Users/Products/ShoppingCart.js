@@ -12,21 +12,27 @@ import {
   getCartItemsFromLocalStorageAction,
   removeOrderItemQty,
 } from '../../../redux/slices/cart/cartSlices';
+import { fetchCouponAction } from '../../../redux/slices/coupons/couponsSlice';
 
 export default function ShoppingCart() {
   let removeOrderItemFromLocalStorageHandler;
   let calculateTotalDiscountedPrice;
   let error;
-  let couponFound;
-  let applyCouponSubmit;
-  let setCoupon;
+  let couponFound;  
   let loading;
-  let coupon;
   //dispatch
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getCartItemsFromLocalStorageAction());
   }, [dispatch]);
+  //coupon state
+  const [couponCode, setCouponCode] = useState(null);
+  const applyCouponSubmit = (e) => {
+    e.preventDefault();
+    dispatch(fetchCouponAction(couponCode));
+    setCouponCode('');
+  };
+
   //get cart items from store
   const { cartItems } = useSelector((state) => state?.carts);
   //add to cart handler
