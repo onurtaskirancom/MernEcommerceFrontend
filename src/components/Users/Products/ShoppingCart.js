@@ -53,6 +53,12 @@ export default function ShoppingCart() {
     return acc + current?.totalPrice;
   }, 0);
 
+  //check if coupon found
+  if (coupon) {
+    sumTotalPrice =
+      sumTotalPrice - (sumTotalPrice * coupon?.coupon?.discount) / 100;
+  }
+  //price of the product - (price of product x discount/100)
   //remove cart  Item handler
   const removeOrderItemQtyHandler = (productId) => {
     dispatch(removeOrderItemQty(productId));
@@ -189,7 +195,7 @@ export default function ShoppingCart() {
                     onChange={(e) => setCouponCode(e.target.value)}
                     type="text"
                     className="block w-full rounded-md border p-2 border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                    placeholder="you@example.com"
+                    placeholder="Enter Coupon Code"
                   />
                 </div>
                 {loading ? (
