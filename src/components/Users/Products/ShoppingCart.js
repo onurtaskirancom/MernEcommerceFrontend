@@ -211,7 +211,9 @@ export default function ShoppingCart() {
                 <dt className="text-base font-medium text-gray-900">
                   Order total
                 </dt>
-                <dd className=" text-xl font-medium text-gray-900">$ 999</dd>
+                <dd className=" text-xl font-medium text-gray-900">
+                  $ {sumTotalPrice}
+                </dd>
               </div>
             </dl>
 
