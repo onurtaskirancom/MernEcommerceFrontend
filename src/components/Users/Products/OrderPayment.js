@@ -1,10 +1,21 @@
-import AddShippingAddress from "../Forms/AddShippingAddress";
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
+import AddShippingAddress from '../Forms/AddShippingAddress';
+import { getCartItemsFromLocalStorageAction } from '../../../redux/slices/cart/cartSlices';
 
 export default function OrderPayment() {
-  //---get cart items from store---
-  const { cartItems } = [];
-
+  //get data from location
+  const location = useLocation();
+  const { sumTotalPrice } = location.state;
   const calculateTotalDiscountedPrice = () => {};
+  //dispatch
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getCartItemsFromLocalStorageAction());
+  }, [dispatch]);
+  //get cart items from store
+  const { cartItems } = useSelector((state) => state?.carts);
 
   //create order submit handler
   const createOrderSubmitHandler = (e) => {
@@ -38,8 +49,8 @@ export default function OrderPayment() {
                     <li key={product._id} className="flex py-6 px-4 sm:px-6">
                       <div className="flex-shrink-0">
                         <img
-                          src={product.imageSrc}
-                          alt={product.imageAlt}
+                          src={product.image}
+                          alt={product._id}
                           className="w-20 rounded-md"
                         />
                       </div>
@@ -61,7 +72,8 @@ export default function OrderPayment() {
 
                         <div className="flex flex-1 items-end justify-between pt-2">
                           <p className="mt-1 text-sm font-medium text-gray-900">
-                            $ {product?.discountedPrice} X {product?.qty}
+                            $ {product?.price} X {product?.qty} =$
+                            {product?.totalPrice}
                           </p>
                         </div>
                       </div>
@@ -76,7 +88,7 @@ export default function OrderPayment() {
                   <div className="flex items-center justify-between border-t border-gray-200 pt-6">
                     <dt className="text-base font-medium">Sub Total</dt>
                     <dd className="text-base font-medium text-gray-900">
-                      $ {calculateTotalDiscountedPrice()}
+                      $ {sumTotalPrice}.00
                     </dd>
                   </div>
                 </dl>
@@ -84,7 +96,8 @@ export default function OrderPayment() {
                 <div className="border-t border-gray-200 py-6 px-4 sm:px-6">
                   <button
                     onClick={createOrderSubmitHandler}
-                    className="w-full rounded-md border border-transparent bg-indigo-600 py-3 px-4 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50">
+                    className="w-full rounded-md border border-transparent bg-indigo-600 py-3 px-4 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"
+                  >
                     Confirm Payment - ${calculateTotalDiscountedPrice()}
                   </button>
                 </div>
