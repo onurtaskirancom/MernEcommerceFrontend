@@ -48,20 +48,40 @@ export const registerUserAction = createAsyncThunk(
 export const updateUserShippingAddressAction = createAsyncThunk(
   'users/update-shipping-address',
   async (
-    { firstName, lastName, address, city, postalCode, province, phone },
+    {
+      firstName,
+      lastName,
+      address,
+      city,
+      postalCode,
+      province,
+      phone,
+      country,
+    },
     { rejectWithValue, getState, dispatch }
   ) => {
     try {
-      //make the http request
-      const { data } = await axios.put(`${baseURL}/users/update/shipping`, {
-        firstName,
-        lastName,
-        address,
-        city,
-        postalCode,
-        province,
-        phone,
-      });
+      //get token
+      const token = getState()?.users?.userAuth?.userInfo?.token;
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const { data } = await axios.put(
+        `${baseURL}/users/update/shipping`,
+        {
+          firstName,
+          lastName,
+          address,
+          city,
+          postalCode,
+          province,
+          phone,
+          country,
+        },
+        config
+      );
       return data;
     } catch (error) {
       console.log(error);
