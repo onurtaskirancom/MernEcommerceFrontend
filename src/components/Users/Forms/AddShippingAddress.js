@@ -1,6 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserProfileAction, updateUserShippingAddressAction } from '../../../redux/slices/users/usersSlice';
+import {
+  getUserProfileAction,
+  updateUserShippingAddressAction,
+} from '../../../redux/slices/users/usersSlice';
 import ErrorMsg from '../../ErrorMsg/ErrorMsg';
 import LoadingComponent from '../../LoadingComp/LoadingComponent';
 import SuccessMsg from '../../SuccessMsg/SuccessMsg';
@@ -12,8 +15,9 @@ const AddShippingAddress = () => {
   useEffect(() => {
     dispatch(getUserProfileAction());
   }, [dispatch]);
-  const { user, loading, error } = useSelector((state) => state?.users);
-
+  const { loading, error, profile } = useSelector((state) => state?.users);
+  const user = profile?.user;
+  console.log(user?.hasShippingAddress);
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
