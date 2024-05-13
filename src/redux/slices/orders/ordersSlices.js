@@ -40,7 +40,7 @@ export const placeOrderAction = createAsyncThunk(
         },
         config
       );
-      return data;
+      return window.open(data?.url);
     } catch (error) {
       return rejectWithValue(error?.response?.data);
     }

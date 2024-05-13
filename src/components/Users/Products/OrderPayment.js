@@ -38,6 +38,7 @@ export default function OrderPayment() {
       placeOrderAction({
         shippingAddress,
         orderItems: cartItems,
+        totalPrice: sumTotalPrice,
       })
     );
   };
