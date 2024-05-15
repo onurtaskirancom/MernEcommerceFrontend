@@ -39,6 +39,8 @@ export default function OrderPayment() {
         totalPrice: sumTotalPrice,
       })
     );
+    //empty cart items
+    localStorage.removeItem("cartItems")
   };
   const { loading: orderLoading, error: orderErr } = useSelector(
     (state) => state?.orders
