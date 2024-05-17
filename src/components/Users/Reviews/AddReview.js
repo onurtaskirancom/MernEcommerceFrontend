@@ -15,6 +15,7 @@ export default function AddReview() {
   //onSubmit
   const handleOnSubmit = (e) => {
     e.preventDefault();
+    console.log(formData);
   };
 
   return (
@@ -26,7 +27,7 @@ export default function AddReview() {
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
             <p className="font-medium text-indigo-600 hover:text-indigo-500">
-              You are reviewing:{" "}
+              You are reviewing:{' '}
               <span className="text-gray-900">Product Name</span>
             </p>
           </p>
@@ -38,7 +39,8 @@ export default function AddReview() {
               <div>
                 <label
                   htmlFor="location"
-                  className="block text-sm font-medium text-gray-700">
+                  className="block text-sm font-medium text-gray-700"
+                >
                   Rating
                 </label>
                 <select
@@ -46,17 +48,18 @@ export default function AddReview() {
                   onChange={handleOnChange}
                   name="rating"
                   className="mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 border-2 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                  defaultValue="Canada">
+                  defaultValue="Canada"
+                >
                   {/* review rating */}
 
                   <option value="1">1</option>
-                  <option value="1.5">1.5</option>
+
                   <option value="2">2</option>
-                  <option value="2.5">2.5</option>
+
                   <option value="3">3</option>
-                  <option value="3.5">3.5</option>
+
                   <option value="4">4</option>
-                  <option value="4.5">4.5</option>
+
                   <option value="5">5 </option>
                 </select>
               </div>
@@ -65,7 +68,8 @@ export default function AddReview() {
               <div>
                 <label
                   htmlFor="comment"
-                  className="block text-sm font-medium text-gray-700">
+                  className="block text-sm font-medium text-gray-700"
+                >
                   Message
                 </label>
                 <div className="mt-1">
@@ -81,7 +85,8 @@ export default function AddReview() {
               <div>
                 <button
                   type="submit"
-                  className="flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                  className="flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                >
                   Add New Review
                 </button>
               </div>
@@ -89,7 +94,8 @@ export default function AddReview() {
               <div>
                 <button
                   type="submit"
-                  className="flex w-full justify-center rounded-md border border-transparent bg-red-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                  className="flex w-full justify-center rounded-md border border-transparent bg-red-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                >
                   I have Changed my mind
                 </button>
               </div>
