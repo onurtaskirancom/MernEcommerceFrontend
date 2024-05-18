@@ -6,6 +6,7 @@ import colorsReducer from '../slices/categories/colorsSlice';
 import couponsReducer from '../slices/coupons/couponsSlice';
 import ordersReducer from '../slices/orders/ordersSlices';
 import productReducer from '../slices/products/productSlices';
+import reviewsReducer from '../slices/reviews/reviewsSlice';
 import usersReducer from '../slices/users/usersSlice';
 
 //store
@@ -19,6 +20,7 @@ const store = configureStore({
     carts: cartReducer,
     coupons: couponsReducer,
     orders: ordersReducer,
+    reviews: reviewsReducer,
   },
 });
 
