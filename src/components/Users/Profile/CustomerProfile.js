@@ -1,7 +1,8 @@
-import CustomerDetails from "./CustomerDetails";
+import { useEffect } from 'react';
+import CustomerDetails from './CustomerDetails';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserProfileAction } from '../../../redux/slices/users/usersSlice';
-import ShippingAddressDetails from "./ShippingAddressDetails";
+import ShippingAddressDetails from './ShippingAddressDetails';
 
 export default function CustomerProfile() {
   //dispatch
