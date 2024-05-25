@@ -33,6 +33,7 @@ import BrandsColorsList from './components/Admin/Categories/BrandsColorsList';
 import AuthRoute from './components/AuthRoute/AuthRoute';
 import AdminRoutes from './components/AuthRoute/AdminRoutes';
 import ThanksForOrdering from './components/Users/Products/ThanksForOrdering';
+import ProductUpdate from './components/Admin/Products/ProuductUpdate';
 
 const App = () => {
   return (
@@ -53,7 +54,7 @@ const App = () => {
           <Route path="" element={<OrdersList />} />
           <Route path="add-product" element={<AddProduct />} />
           <Route path="manage-products" element={<ManageStocks />} />
-          <Route path="products/edit/:id" element={<UpdateProduct />} />
+          <Route path="products/edit/:id" element={<ProductUpdate />} />
           {/* coupons */}
           <Route path="add-coupon" element={<AddCoupon />} />
           <Route path="manage-coupon" element={<ManageCoupons />} />
