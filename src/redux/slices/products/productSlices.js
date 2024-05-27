@@ -84,6 +84,54 @@ export const createProductAction = createAsyncThunk(
   }
 );
 
+//create product action
+export const updateProductAction = createAsyncThunk(
+  'product/update',
+  async (payload, { rejectWithValue, getState, dispatch }) => {
+    console.log(payload);
+    try {
+      const {
+        name,
+        description,
+        category,
+        sizes,
+        brand,
+        colors,
+        price,
+        totalQty,
+        id,
+      } = payload;
+      // make request
+      // Token Authenticated
+      const token = getState()?.users?.userAuth?.userInfo?.token;
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data',
+        },
+      };
+
+      const { data } = await axios.post(
+        `${baseURL}/products/${id}`,
+        {
+          name,
+          description,
+          category,
+          sizes,
+          brand,
+          colors,
+          price,
+          totalQty,
+        },
+        config
+      );
+      return data;
+    } catch (error) {
+      return rejectWithValue(error?.response?.data);
+    }
+  }
+);
+
 //fetch product action
 export const fetchProductsAction = createAsyncThunk(
   'product/list',
@@ -144,6 +192,21 @@ const productSlice = createSlice({
       state.loading = false;
       state.product = null;
       state.isAdded = false;
+      state.error = action.payload;
+    });
+    //update
+    builder.addCase(updateProductAction.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(updateProductAction.fulfilled, (state, action) => {
+      state.loading = false;
+      state.product = action.payload;
+      state.isUpdated = true;
+    });
+    builder.addCase(updateProductAction.rejected, (state, action) => {
+      state.loading = false;
+      state.product = null;
+      state.isUpdated = false;
       state.error = action.payload;
     });
     //fetch all
