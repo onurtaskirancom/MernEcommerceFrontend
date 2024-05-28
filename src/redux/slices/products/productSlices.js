@@ -111,7 +111,7 @@ export const updateProductAction = createAsyncThunk(
         },
       };
 
-      const { data } = await axios.post(
+      const { data } = await axios.put(
         `${baseURL}/products/${id}`,
         {
           name,

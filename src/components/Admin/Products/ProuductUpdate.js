@@ -5,7 +5,11 @@ import makeAnimated from 'react-select/animated';
 import { fetchBrandsAction } from '../../../redux/slices/categories/brandsSlice';
 import { fetchCategoriesAction } from '../../../redux/slices/categories/categoriesSlice';
 import { fetchColorsAction } from '../../../redux/slices/categories/colorsSlice';
-import { createProductAction } from '../../../redux/slices/products/productSlices';
+import {
+  createProductAction,
+  fetchProductAction,
+  updateProductAction,
+} from '../../../redux/slices/products/productSlices';
 
 import ErrorMsg from '../../ErrorMsg/ErrorMsg';
 import LoadingComponent from '../../LoadingComp/LoadingComponent';
@@ -15,7 +19,15 @@ import SuccessMsg from '../../SuccessMsg/SuccessMsg';
 const animatedComponents = makeAnimated();
 
 export default function ProductUpdate() {
+  //dispatch
   const dispatch = useDispatch();
+  //get id from params
+  const { id } = useParams();
+  //fetch single product
+  useEffect(() => {
+    dispatch(fetchProductAction(id));
+  }, [id, dispatch]);
+
   //Sizes
   const sizes = ['S', 'M', 'L', 'XL', 'XXL'];
   const [sizeOption, setSizeOption] = useState([]);
@@ -64,17 +76,25 @@ export default function ProductUpdate() {
     };
   });
 
+  //get product from store
+  const {
+    product: { product },
+    isUpdated,
+    loading,
+    error,
+  } = useSelector((state) => state?.products);
+
   //---form data---
   const [formData, setFormData] = useState({
-    name: '',
-    description: '',
+    name: product?.name,
+    description: product?.description,
     category: '',
     sizes: '',
     brand: '',
     colors: '',
     images: '',
-    price: '',
-    totalQty: '',
+    price: product?.price,
+    totalQty: product?.totalQty,
   });
 
   //onChange
@@ -82,18 +102,14 @@ export default function ProductUpdate() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  //get product from store
-  const { product, isAdded, loading, error } = useSelector(
-    (state) => state?.products
-  );
-
   //onSubmit
   const handleOnSubmit = (e) => {
     e.preventDefault();
     //dispatch
     dispatch(
-      createProductAction({
+      updateProductAction({
         ...formData,
+        id,
         colors: colorsOption?.map((color) => color.label),
         sizes: sizeOption?.map((size) => size?.label),
       })
@@ -277,7 +293,7 @@ export default function ProductUpdate() {
                   <LoadingComponent />
                 ) : (
                   <button
-                    disabled
+                    type="submit"
                     className="flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                   >
                     Update Product
