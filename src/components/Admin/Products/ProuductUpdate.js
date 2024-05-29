@@ -77,24 +77,21 @@ export default function ProductUpdate() {
   });
 
   //get product from store
-  const {
-    product: { product },
-    isUpdated,
-    loading,
-    error,
-  } = useSelector((state) => state?.products);
+  const { product, isUpdated, loading, error } = useSelector(
+    (state) => state?.products
+  );
 
   //---form data---
   const [formData, setFormData] = useState({
-    name: product?.name,
-    description: product?.description,
+    name: product?.product?.name,
+    description: product?.product?.description,
     category: '',
     sizes: '',
     brand: '',
     colors: '',
     images: '',
-    price: product?.price,
-    totalQty: product?.totalQty,
+    price: product?.product?.price,
+    totalQty: product?.product?.totalQty,
   });
 
   //onChange
@@ -130,7 +127,8 @@ export default function ProductUpdate() {
 
   return (
     <>
-      {isAdded && <SuccessMsg message="Product Added Successfully" />}
+      {error && <ErrorMsg message={error?.message} />}
+      {isUpdated && <SuccessMsg message="Product Updated Successfully" />}
       <div className="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
           <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
