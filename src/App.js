@@ -34,6 +34,7 @@ import AuthRoute from './components/AuthRoute/AuthRoute';
 import AdminRoutes from './components/AuthRoute/AdminRoutes';
 import ThanksForOrdering from './components/Users/Products/ThanksForOrdering';
 import ProductUpdate from './components/Admin/Products/ProuductUpdate';
+import UpdateOrders from './components/Admin/Orders/UpdateOrders';
 
 const App = () => {
   return (
@@ -72,6 +73,7 @@ const App = () => {
           <Route path="all-colors" element={<BrandsColorsList />} />
           {/* Orders */}
           <Route path="manage-orders" element={<ManageOrders />} />
+          <Route path="orders/:id" element={<UpdateOrders />} />
           <Route path="order-payment" element={<OrderPayment />} />
           <Route path="customers" element={<Customers />} />
         </Route>
