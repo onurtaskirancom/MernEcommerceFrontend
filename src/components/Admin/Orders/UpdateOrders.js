@@ -14,6 +14,8 @@ const UpdateOrders = () => {
 
   const onChange = (e) => {
     dispatch(updateOrderAction({ status: e.target.value, id }));
+    //redirect
+    window.location.href = '/admin';
   };
 
   return (
