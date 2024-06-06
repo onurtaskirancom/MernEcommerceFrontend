@@ -1,16 +1,9 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchOrdersAction } from '../../../redux/slices/orders/ordersSlices';
-
-const people = [
-  {
-    name: 'Lindsay Walton',
-    title: 'Front-end Developer',
-    email: 'lindsay.walton@example.com',
-    role: 'Member',
-  },
-  // More people...
-];
+import ErrorMsg from '../../ErrorMsg/ErrorMsg';
+import LoadingComponent from '../../LoadingComp/LoadingComponent';
+import NoDataFound from '../../NoDataFound/NoDataFound';
 
 export default function Customers() {
   //dispatch
@@ -35,6 +28,11 @@ export default function Customers() {
         All Customers [{uniqueCustomers?.length}]
       </h3>
       <div className="-mx-4 mt-3  overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:-mx-6 md:mx-0 md:rounded-lg">
+        {loading ? (
+          <LoadingComponent />
+        ) : uniqueCustomers?.length <= 0 ? (
+          <NoDataFound />
+        ) : (
           <table className="min-w-full divide-y divide-gray-300">
             <thead className="bg-gray-50">
               <tr>
@@ -105,6 +103,7 @@ export default function Customers() {
               ))}
             </tbody>
           </table>
+        )}
       </div>
     </div>
   );
