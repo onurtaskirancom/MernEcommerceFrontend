@@ -113,7 +113,7 @@ const couponsLinks = [
     ),
   },
   {
-    name: 'Manage Coupon',
+    name: 'Manage Coupons',
     href: 'manage-coupon',
     icon: () => (
       <svg
@@ -140,14 +140,13 @@ function classNames(...classes) {
 const CategoryLinks = [
   { name: 'Add Category', href: 'category-to-add', icon: CogIcon },
   {
-    name: 'Manage Category',
+    name: 'All Categories',
     href: 'manage-category',
     icon: QuestionMarkCircleIcon,
   },
 ];
 
 const colorsLinks = [
-  { name: 'Add New Color', href: 'add-color', icon: CogIcon },
   {
     name: 'All Colors',
     href: 'all-colors',
@@ -156,7 +155,6 @@ const colorsLinks = [
 ];
 
 const brandsLinks = [
-  { name: 'Add New Brand', href: 'add-brand', icon: CogIcon },
   {
     name: 'All Brands',
     href: 'all-brands',
