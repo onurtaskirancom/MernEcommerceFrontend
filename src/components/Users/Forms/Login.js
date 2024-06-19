@@ -30,11 +30,11 @@ const Login = () => {
   );
 
   //redirect
-  // if (userInfo?.userFound?.isAdmin) {
-  //   window.location.href = '/admin';
-  // } else {
-  //   window.location.href = '/customer-profile';
-  // }
+    useEffect(() => {
+      if (userInfo?.userFound) {
+        window.location.href = '/';
+      }
+    }, [userInfo]);
 
   return (
     <>
