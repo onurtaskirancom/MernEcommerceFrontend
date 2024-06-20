@@ -43,6 +43,17 @@ export default function Navbar() {
     //reload
     window.location.reload();
   };
+    //coupons
+  useEffect(() => {
+    dispatch(fetchCouponsAction());
+  }, [dispatch]);
+  //get coupons
+  const { coupons, loading, error } = useSelector((state) => state?.coupons);
+  //Get current coupon
+  const currentCoupon = coupons
+    ? coupons?.coupons?.[coupons?.coupons?.length - 1]
+    : console.log(currentCoupon);
+
   return (
     <div className="bg-white">
       {/* Mobile menu */}
@@ -173,7 +184,9 @@ export default function Navbar() {
           <div className="bg-gray-900">
             <div className="mx-auto flex h-10 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
               <p className="flex-1 text-center text-sm font-medium text-white lg:flex-none">
-                Get free delivery on orders over $100
+                {currentCoupon
+                  ? `${currentCoupon?.code}- ${currentCoupon?.discount}%`
+                  : 'No Flash sale at moment'}
               </p>
 
               <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
