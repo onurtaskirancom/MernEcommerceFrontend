@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchCategoriesAction } from '../../redux/slices/categories/categoriesSlice';
 import { getCartItemsFromLocalStorageAction } from '../../redux/slices/cart/cartSlices';
 import { logoutAction } from '../../redux/slices/users/usersSlice';
+import { fetchCouponsAction } from '../../redux/slices/coupons/couponsSlice';
 
 export default function Navbar() {
   //dispatch
