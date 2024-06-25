@@ -22,6 +22,8 @@ const Login = () => {
   const onSubmitHandler = (e) => {
     e.preventDefault();
     dispatch(loginUserAction({ email, password }));
+    //reload
+    window.location.href = '/';
   };
 
   //get data from store
@@ -30,11 +32,11 @@ const Login = () => {
   );
 
   //redirect
-    useEffect(() => {
-      if (userInfo?.userFound) {
-        window.location.href = '/';
-      }
-    }, [userInfo]);
+  useEffect(() => {
+    if (userInfo?.userFound) {
+      window.location.href = '/';
+    }
+  }, [userInfo]);
 
   return (
     <>
