@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import AdminDashboard from './components/Admin/AdminDashboard';
 import ManageCoupons from './components/Admin/Coupons/ManageCoupons';
@@ -25,7 +25,6 @@ import ProductsFilters from './components/Users/Products/ProductsFilters';
 import CustomerProfile from './components/Users/Profile/CustomerProfile';
 import AddReview from './components/Users/Reviews/AddReview';
 import UpdateCategory from './components/Admin/Categories/UpdateCategory';
-
 import OrdersList from './components/Admin/Orders/OdersList';
 import ManageOrders from './components/Admin/Orders/ManageOrders';
 import Customers from './components/Admin/Orders/Customers';
@@ -36,11 +35,13 @@ import ThanksForOrdering from './components/Users/Products/ThanksForOrdering';
 import ProductUpdate from './components/Admin/Products/ProuductUpdate';
 import UpdateOrders from './components/Admin/Orders/UpdateOrders';
 import ColorsList from './components/Admin/Categories/ColorsList';
+import { useDispatch, useSelector } from 'react-redux';
 
 const App = () => {
   return (
     <BrowserRouter>
       <Navbar />
+
       {/* hide navbar if admin */}
       <Routes>
         {/* admin route */}
@@ -187,6 +188,14 @@ const App = () => {
 
         {/* shopping cart */}
         <Route path="/shopping-cart" element={<ShoppingCart />} />
+        <Route
+          path="/order-payment"
+          element={
+            <AuthRoute>
+              <OrderPayment />
+            </AuthRoute>
+          }
+        />
         {/* users */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<RegisterForm />} />
@@ -197,7 +206,7 @@ const App = () => {
               <CustomerProfile />
             </AuthRoute>
           }
-        />
+        ></Route>
       </Routes>
     </BrowserRouter>
   );
