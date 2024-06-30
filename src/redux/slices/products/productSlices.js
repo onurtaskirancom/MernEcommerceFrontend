@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { act } from 'react-dom/test-utils';
 import baseURL from '../../../utils/baseURL';
 import {
   resetErrAction,
@@ -34,8 +35,6 @@ export const createProductAction = createAsyncThunk(
         totalQty,
         files,
       } = payload;
-      // make request
-      // Token Authenticated
       const token = getState()?.users?.userAuth?.userInfo?.token;
       const config = {
         headers: {
@@ -66,15 +65,7 @@ export const createProductAction = createAsyncThunk(
 
       const { data } = await axios.post(
         `${baseURL}/products`,
-        {
-          name,
-          description,
-          category,
-          sizes,
-          brand,
-          colors,
-          price,
-        },
+        formData,
         config
       );
       return data;
@@ -101,8 +92,6 @@ export const updateProductAction = createAsyncThunk(
         totalQty,
         id,
       } = payload;
-      // make request
-      // Token Authenticated
       const token = getState()?.users?.userAuth?.userInfo?.token;
       const config = {
         headers: {
@@ -131,7 +120,7 @@ export const updateProductAction = createAsyncThunk(
   }
 );
 
-//fetch product action
+//fetch products action
 export const fetchProductsAction = createAsyncThunk(
   'product/list',
   async ({ url }, { rejectWithValue, getState, dispatch }) => {
@@ -143,6 +132,7 @@ export const fetchProductsAction = createAsyncThunk(
           Authorization: `Bearer ${token}`,
         },
       };
+
       const { data } = await axios.get(`${url}`, config);
       return data;
     } catch (error) {
@@ -150,6 +140,7 @@ export const fetchProductsAction = createAsyncThunk(
     }
   }
 );
+
 //fetch product action
 export const fetchProductAction = createAsyncThunk(
   'product/details',
@@ -186,7 +177,6 @@ const productSlice = createSlice({
       state.product = action.payload;
       state.isAdded = true;
     });
-
     builder.addCase(createProductAction.rejected, (state, action) => {
       state.loading = false;
       state.product = null;
